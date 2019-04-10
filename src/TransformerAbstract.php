@@ -11,6 +11,7 @@
 
 namespace League\Fractal;
 
+use Cake\Log\Log;
 use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;
 use League\Fractal\Resource\NullResource;
@@ -158,7 +159,7 @@ abstract class TransformerAbstract
 
             if ($childScope->getResource() instanceof Primitive) {
                 $includedData[$include] = $childScope->transformPrimitiveResource();
-            } elseif (empty($childScope->getResource()->getData())) {
+            } elseif (empty($childScope->getResource()->getData()) && empty($scope->getIdentifier())) {
                 $includedData[$include] = false;
             } else {
                 $includedData[$include] = $childScope->toArray();
